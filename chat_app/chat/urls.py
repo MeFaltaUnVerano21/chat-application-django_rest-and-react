@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import UserView
+from .views import RoomView
 urlpatterns = [
-    path('home', UserView.as_view() )
 ]

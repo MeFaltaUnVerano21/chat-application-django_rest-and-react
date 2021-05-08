@@ -1,7 +1,7 @@
-from .models import User
+from .models import Room
 from rest_framework import serializers
 
-class UserSerializer(serializers.ModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ("url", "username", "email")
+        model = Room
+        fields = ("code", "host")

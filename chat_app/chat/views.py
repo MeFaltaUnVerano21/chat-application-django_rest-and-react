@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics, status
-from .serializers import UserSerializer
-from .models import User
+from .serializers import RoomSerializer
+from .models import Room
 from rest_framework import viewsets
 
 
 
-class UserView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class RoomView(generics.CreateAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
