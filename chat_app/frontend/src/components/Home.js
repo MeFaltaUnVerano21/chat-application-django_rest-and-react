@@ -3,11 +3,10 @@ import React from 'react';
 import { Grid, Button, TextField, Typography, Paper, Card, CardHeader, Avatar } from '@material-ui/core';
 function Home() {
   
-  const [ room, setrom ] = React.useState('vacad');
+  const [ room, setrom ] = React.useState('world');
   const [ logged, setlogged ] = React.useState(false);
   const [ name, setname ] = React.useState('guest');
-  const [ channel, setchannel ] = React.useState('world');
-  const [ messages, setmessages ] = React.useState([{msg: "test", name: "Vladimir"}, {msg: "test", name: "Kovalski"}])
+  const [ messages, setmessages ] = React.useState([])
   const [ value, setvalue ] = React.useState('message');
   const client = React.useRef(null); 
 
@@ -64,7 +63,7 @@ function Home() {
       onChange={(e)=> setname(e.target.value)}/>
     </Grid>
     <Grid item xs={12} align="center">
-      <TextField defaultValue={channel} variant="outlined" label="Chat Name" required={true} onChange={(e)=> setname(e.target.value)}/>
+      <TextField defaultValue={room} variant="outlined" label="Chat Name" required={true} onChange={(e)=> setroom(e.target.value)}/>
     </Grid>
     <Grid item xs={12} align="center">
       <Button variant="contained" color="primary" size="large" onClick={(e)=> setlogged(true)}>
@@ -77,6 +76,11 @@ function Home() {
   function chat(){
     return(
     <Grid container spacing={1}>
+        <Grid item xs={12} align="center">
+          <Typography variant="h4" component="h4">
+            Room {room}
+          </Typography>
+      </Grid>
       <Grid item xs={12} align="center">
           <Paper variant="outlined" square style={{height: 500, maxHeight: 500, boxShadow: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             {messages.map((message => {
