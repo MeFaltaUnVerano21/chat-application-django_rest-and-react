@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, Button, TextField, Typography, Paper, Card, CardHeader, Avatar } from '@material-ui/core';
 function Home() {
   
-  const [ room, setrom ] = React.useState('world');
+  const [ room, setroom ] = React.useState('world');
   const [ logged, setlogged ] = React.useState(false);
   const [ name, setname ] = React.useState('guest');
   const [ messages, setmessages ] = React.useState([])
@@ -33,13 +33,13 @@ function Home() {
   }
 
   React.useEffect(()=>{
-    connect()
+    if (logged){
+      client.current.onopen = onOpen;
 
-    client.current.onopen = onOpen;
+      client.current.onmessage = onMessage;
+    }
 
-    client.current.onmessage = onMessage;
-    
-  }, []);
+  }, [logged]);
 
   function onButtonClicked(e){
     client.current.send(JSON.stringify({
@@ -51,6 +51,11 @@ function Home() {
     e.preventDefault();
   }
 
+  function onRegister(){
+    connect()
+    setlogged(true)
+  }
+
   function register(){
     return(<Grid  container spacing={3}>
     <Grid item xs={12} align="center">
@@ -59,14 +64,14 @@ function Home() {
       </Typography>
     </Grid>
     <Grid item xs={12} align="center">
-      <TextField defaultValue={name} variant="outlined" label="User Name" type="text" required={true} inputProps={{min: 1}}
+      <TextField defaultValue={name} value={name} variant="outlined" label="User Name" type="text" required={true} inputProps={{min: 1}}
       onChange={(e)=> setname(e.target.value)}/>
     </Grid>
     <Grid item xs={12} align="center">
       <TextField defaultValue={room} variant="outlined" label="Chat Name" required={true} onChange={(e)=> setroom(e.target.value)}/>
     </Grid>
     <Grid item xs={12} align="center">
-      <Button variant="contained" color="primary" size="large" onClick={(e)=> setlogged(true)}>
+      <Button variant="contained" color="primary" size="large" onClick={()=> onRegister()}>
         Join
       </Button>
     </Grid>
